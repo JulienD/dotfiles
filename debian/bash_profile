@@ -1,0 +1,183 @@
+
+#-------------------------------------------------------------
+# Greeting, motd etc...
+#-------------------------------------------------------------
+
+# Define some colors first:
+red='\e[0;31m'
+RED='\e[1;31m'
+blue='\e[0;34m'
+BLUE='\e[1;34m'
+cyan='\e[0;36m'
+CYAN='\e[1;36m'
+NC='\e[0m'              # No Color
+# --> Nice. Has the same effect as using "ansi.sys" in DOS.
+
+
+# Looks best on a terminal with black background.....
+echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}\
+${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}\n"
+date
+if [ -x /usr/games/fortune ]; then
+    /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
+fi
+
+function _exit()        # Function to run upon exit of shell.
+{
+    echo -e "${RED}Hasta la vista, baby${NC}"
+}
+trap _exit EXIT
+
+
+#-------------------------------------------------------------
+# Shell Prompt
+#-------------------------------------------------------------
+
+
+if [[ "${DISPLAY%%:0*}" != "" ]]; then  
+    HILIT=${red}   # remote machine: prompt will be partly red
+else
+    HILIT=${cyan}  # local machine: prompt will be partly cyan
+fi
+
+#  --> Replace instances of \W with \w in prompt functions below
+#+ --> to get display of full path name.
+
+function fastprompt()
+{
+    unset PROMPT_COMMAND
+    case $TERM in
+        *term | rxvt )
+            PS1="${HILIT}[\h]$NC \W > \[\033]0;\${TERM} [\u@\h] \w\007\]" ;;
+        linux )
+            PS1="${HILIT}[\h]$NC \W > " ;;
+        *)
+            PS1="[\h] \W > " ;;
+    esac
+}
+
+
+_powerprompt()
+{
+    LOAD=$(uptime|sed -e "s/.*: \([^,]*\).*/\1/" -e "s/ //g")
+}
+
+function powerprompt()
+{
+
+    PROMPT_COMMAND=_powerprompt
+    case $TERM in
+        *term | rxvt  )
+            PS1="${HILIT}[\A - \$LOAD]$NC\n[\u@\h \#] \W > \
+                 \[\033]0;\${TERM} [\u@\h] \w\007\]" ;;
+        linux )
+            PS1="${HILIT}[\A - \$LOAD]$NC\n[\u@\h \#] \W > " ;;
+        * )
+            PS1="[\A - \$LOAD]\n[\u@\h \#] \W > " ;;
+    esac
+}
+
+powerprompt     # This is the default prompt -- might be slow.
+                # If too slow, use fastprompt instead. ...
+
+
+#-------------------
+# Generic Aliases
+#-------------------
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias mkdir='mkdir -p'
+alias h='history'
+
+alias du='du -kh'
+alias df='df -kTh'
+
+
+#-------------------------------------------------------------
+# ls aliases
+#-------------------------------------------------------------
+alias ll="ls -l --group-directories-first"
+alias ls='ls -hF --color' # add colors for filetype recognition
+alias la='ls -ah'         # show hidden files
+alias lx='ls -lXBh'       # sort by extension
+alias lk='ls -lSh'        # sort by size, biggest last
+alias lt='ls -lth'        # sort by date, most recent first
+alias ltr='ls -ltrh'      # sort by date, most recent last
+
+
+#-------------------------------------------------------------
+# spelling typos
+#-------------------------------------------------------------
+
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+alias cd..='cd ..' 
+
+
+#-------------------------------------------------------------
+# git branch identification
+#-------------------------------------------------------------
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+    xterm) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+# We have color support; assume it's compliant with Ecma-48
+# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+# a case would tend to support setf rather than setaf.)
+color_prompt=yes
+    else
+color_prompt=
+    fi
+fi
+
+# Make git branch info available in the prompt.
+# See ~/.git-completion.bash for more info.
+source ~/.git-completion.bash
+export GIT_PS1_SHOWDIRTYSTATE="yes"
+export GIT_PS1_SHOWUNTRACKEDFILES="yes"
+#export GIT_PS1_SHOWSTASHSTATE="yes"
+#export GIT_PS1_SHOWUPSTREAM="yes"
+
+# Generate prompt.
+if [ "$color_prompt" = yes ]; then
+    PS1_CHROOT='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u@\h\[\033[00m\]:'
+    PS1_CWD='\[\033[01;32m\]\w'
+    PSI_GIT_BRANCH='\[\033[00;36m\]$(__git_ps1 "(%s)")'
+    PS1_TRAIL='\[\033[00m\] > '
+else
+    PS1_CHROOT='${debian_chroot:+($debian_chroot)}\u@\h:'
+    PS1_CWD='\w'
+    PSI_GIT_BRANCH='$(__git_ps1 "(%s)")'
+    PS1_TRAIL=' > '
+fi
+PS1="$PS1_CHROOT$PS1_CWD$PSI_GIT_BRANCH$PS1_TRAIL"
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;

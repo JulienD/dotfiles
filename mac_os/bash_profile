@@ -1,0 +1,47 @@
+
+#-------------------------------------------------------------
+# Terminal colours
+#-------------------------------------------------------------
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+
+#-------------------
+# Generic Aliases
+#-------------------
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias mkdir='mkdir -p'
+alias h='history'
+
+alias du='du -kh'
+alias df='df -kTh'
+
+
+#-------------------------------------------------------------
+# ls aliases
+#-------------------------------------------------------------
+alias ll="ls -l"
+alias ls='ls -hF' # add colors for filetype recognition
+alias la='ls -ah'         # show hidden files
+#alias lx='ls -lXBh'       # sort by extension
+#alias lk='ls -lSh'        # sort by size, biggest last
+#alias lt='ls -lth'        # sort by date, most recent first
+#alias ltr='ls -ltrh'      # sort by date, most recent last
+
+
+#-------------------------------------------------------------
+# spelling typos
+#-------------------------------------------------------------
+
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+alias cd..='cd ..' 
+
