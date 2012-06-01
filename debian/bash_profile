@@ -200,3 +200,4 @@ xterm*|rxvt*)
     ;;
 *)
     ;;
+esac
