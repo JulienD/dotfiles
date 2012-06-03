@@ -39,6 +39,11 @@ alias h='history'
 alias du='du -kh'
 alias df='df -kTh'
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~
+
 
 #-------------------------------------------------------------
 # ls aliases
@@ -46,10 +51,10 @@ alias df='df -kTh'
 alias ll="ls -l"
 alias ls='ls -hF'          # add colors for filetype recognition
 alias la='ls -lah'         # show hidden files
-#alias lx='ls -lXBh'       # sort by extension
-#alias lk='ls -lSh'        # sort by size, biggest last
-#alias lt='ls -lth'        # sort by date, most recent first
-#alias ltr='ls -ltrh'      # sort by date, most recent last
+alias lx='ls -lXBh'        # sort by extension
+alias lk='ls -lSh'         # sort by size, biggest last
+alias lt='ls -lth'         # sort by date, most recent first
+alias ltr='ls -ltrh'       # sort by date, most recent last
 
 
 #-------------------------------------------------------------
