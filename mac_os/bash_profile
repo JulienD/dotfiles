@@ -42,13 +42,13 @@ alias df='df -kTh'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias ~='cd ~
+alias ~='cd ~'
 
 
 #-------------------------------------------------------------
 # ls aliases
 #-------------------------------------------------------------
-alias ll="ls -l"
+alias ll='ls -l'
 alias ls='ls -hF'          # add colors for filetype recognition
 alias la='ls -lah'         # show hidden files
 alias lx='ls -lXBh'        # sort by extension
