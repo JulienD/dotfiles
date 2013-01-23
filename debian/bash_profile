@@ -1,5 +1,5 @@
 # Hello_world.
-echo Bonjour $USER, nous sommes le `date +"%A %e %B %Y"`, et il est : `date +"%H"` h `date +"%M"`
+echo `date +"%A %e %B %Y"` `date +"%H"` h `date +"%M"`
 
 #-------------------------------------------------------------
 # Some settings
@@ -17,8 +17,6 @@ unset MAILCHECK
 # Bash history
 #-------------------------------------------------------------
 
-# Enable bash history.
-set -o history
 # History length.
 HISTSIZE=1000
 # Bash history file length.
