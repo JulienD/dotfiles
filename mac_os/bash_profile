@@ -10,8 +10,6 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 # Bash history
 #-------------------------------------------------------------
 
-# Enable bash history.
-set -o history
 # History length.
 HISTSIZE=1000
 # Bash history file length.
