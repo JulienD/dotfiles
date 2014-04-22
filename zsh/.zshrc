@@ -4,17 +4,17 @@
 # time that oh-my-zsh is loaded.
 ZSH_THEME="agnoster"
 
-source ~/.zsh/colors.zsh
-source ~/.zsh/exports.zsh
-source ~/.zsh/completion.zsh
-source ~/.zsh/aliases.zsh
-source ~/.zsh/bindkeys.zsh
-source ~/.zsh/functions.zsh
-source ~/.zsh/history.zsh
+#source ~/.dotfiles/zsh/colors.zsh
+#source ~/.dotfiles/zsh/exports.zsh
+#source ~/.dotfiles/zsh/completion.zsh
+source ~/.dotfiles/zsh/aliases.zsh
+#source ~/.dotfiles/zsh/bindkeys.zsh
+#source ~/.dotfiles/zsh/functions.zsh
+#source ~/.dotfiles/zsh/history.zsh
 
 plugins=(git, vagrant)
 
-source $ZSH/oh-my-zsh.sh
+source ~/.dotfiles/oh-my-zsh/oh-my-zsh.sh
 
 # User configuration
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/vagrant_ruby/bin"`

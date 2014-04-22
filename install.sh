@@ -5,7 +5,7 @@ BACKUP="$HOME/.dotfiles-backup-`date +%s`"
 
 install_dotfiles () {
 
-	find  $DOTFILES_ROOT -type f -mindepth 2 -name ".*"  -print0 | while IFS= read -r -d '' source;
+	find  $DOTFILES_ROOT -mindepth 2 -name ".*" -type f -print0 | while IFS= read -r -d '' source;
   do
 		filename=`basename $source`
 		dest="$HOME/$filename"
